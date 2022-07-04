@@ -51,7 +51,12 @@ func NewToken(apikey string) *Token {
 }
 
 // RequestToken fetches IBM Cloud Oauth access token for provided API key.
-func (t *Token) RequestToken(ctx context.Context) error {
+func (t *Token) RequestToken() error {
+	return t.RequestTokenWithContext(context.Background())
+}
+
+// RequestTokenWithContext fetches IBM Cloud access token with custom context.
+func (t *Token) RequestTokenWithContext(ctx context.Context) error {
 
 	data := url.Values{}
 	data.Set("grant_type", tokenGrantType)
