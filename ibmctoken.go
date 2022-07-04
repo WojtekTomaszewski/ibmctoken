@@ -1,4 +1,4 @@
-// ibmctoken gets IBM Cloud Oauth access token for provided API key.
+// Package ibmctoken gets IBM Cloud Oauth access token for provided API key.
 //
 // Usage
 //
