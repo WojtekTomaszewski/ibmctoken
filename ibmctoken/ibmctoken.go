@@ -4,7 +4,7 @@
 //
 //   apiKey := os.Getenv("MY_API_KEY")
 //   token := ibmctoken.NewToken(apiKey)
-//   _ = token.RequestToken(context.Background())
+//   _ = token.RequestToken()
 //   fmt.Println(token.AccessToken)
 package ibmctoken
 
