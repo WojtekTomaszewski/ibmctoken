@@ -26,6 +26,11 @@ const (
 	tokenGrantType   = "urn:ibm:params:oauth:grant-type:apikey"
 )
 
+// httpclient interface is used to mock http client.
+type httpclient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+
 // tokenResponse represents IBM Cloud Oauth access token response.
 type tokenResponse struct {
 	AccessToken string `json:"access_token"`
@@ -42,12 +47,16 @@ type tokenErrorResponse struct {
 // Token represents IBM Cloud Oauth access token.
 type Token struct {
 	ApiKey string
+	Client httpclient
 	tokenResponse
 }
 
 // NewToken creates new IBM Cloud Oauth access token.
 func NewToken(apikey string) *Token {
-	return &Token{ApiKey: apikey}
+	return &Token{
+		ApiKey: apikey,
+		Client: &http.Client{},
+	}
 }
 
 // RequestToken fetches IBM Cloud Oauth access token for provided API key.
@@ -72,7 +81,7 @@ func (t *Token) RequestTokenWithContext(ctx context.Context) error {
 	req.Header.Set("Content-Type", tokenContentType)
 	req.Header.Set("Accept", tokenAccept)
 
-	res, err := http.DefaultClient.Do(req)
+	res, err := t.Client.Do(req)
 	if err != nil {
 		return err
 	}
