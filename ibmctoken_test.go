@@ -2,11 +2,12 @@ package ibmctoken_test
 
 import (
 	"fmt"
-	"github.com/WojtekTomaszewski/ibmctoken"
 	"io"
 	"net/http"
 	"strings"
 	"testing"
+
+	"github.com/WojtekTomaszewski/ibmctoken"
 )
 
 type mockClient struct {
@@ -76,7 +77,7 @@ func TestRequestToken(t *testing.T) {
 			t.Errorf("Error was expected")
 		}
 
-		if err.Error() != fmt.Sprintf("error-message error-details") {
+		if err.Error() != "error-message error-details" {
 			t.Errorf("Different error message expected: %v", err)
 		}
 
