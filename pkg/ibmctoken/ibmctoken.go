@@ -2,10 +2,10 @@
 //
 // Usage
 //
-//   apiKey := os.Getenv("MY_API_KEY")
-//   token := ibmctoken.NewToken(apiKey)
-//   _ = token.RequestToken()
-//   fmt.Println(token.AccessToken)
+//	apiKey := os.Getenv("MY_API_KEY")
+//	token := ibmctoken.NewToken(apiKey)
+//	_ = token.RequestToken()
+//	fmt.Println(token.AccessToken)
 package ibmctoken
 
 import (
@@ -20,7 +20,7 @@ import (
 
 // token endpoint address.
 const (
-	tokenUrl         = "https://iam.cloud.ibm.com/identity/token"
+	tokenURL         = "https://iam.cloud.ibm.com/identity/token"
 	tokenContentType = "application/x-www-form-urlencoded"
 	tokenAccept      = "application/json"
 	tokenGrantType   = "urn:ibm:params:oauth:grant-type:apikey"
@@ -55,7 +55,9 @@ type Token struct {
 func NewToken(apikey string) *Token {
 	return &Token{
 		ApiKey: apikey,
-		Client: &http.Client{},
+		Client: &http.Client{
+			Timeout: 10 * time.Second,
+		},
 	}
 }
 
@@ -73,7 +75,7 @@ func (t *Token) RequestTokenWithContext(ctx context.Context) error {
 
 	dataEncoded := data.Encode()
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, tokenUrl, strings.NewReader(dataEncoded))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, tokenURL, strings.NewReader(dataEncoded))
 	if err != nil {
 		return err
 	}
