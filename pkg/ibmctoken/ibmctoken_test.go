@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/WojtekTomaszewski/ibmctoken"
+	"github.com/WojtekTomaszewski/ibmctoken/pkg/ibmctoken"
 )
 
 type mockClient struct {

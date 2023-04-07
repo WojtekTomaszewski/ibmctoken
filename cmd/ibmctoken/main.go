@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/WojtekTomaszewski/ibmctoken"
 	"os"
+
+	"github.com/WojtekTomaszewski/ibmctoken/pkg/ibmctoken"
 )
 
 func main() {
